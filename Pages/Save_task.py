@@ -5,7 +5,7 @@ from AI_agent import agentic_save
 # function to create Save Tasks UI
 def page_tasks():
 
-    # st.set_page_config(page_title='Agentic - Save Tasks')
+    # st.set_page_config(page_title='Agentic - Save Tasks')  # Already set in App.py
     st.subheader('Write a Task to Delegate')
 
     if 'messages' not in st.session_state:

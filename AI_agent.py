@@ -13,13 +13,13 @@ def save_task(task):
     task['created_at'] = datetime.datetime.now()
     db_helper.save(task)
      
-    result=(
-        f"Task saved successfully as **pending** \n\n",
-        f"**Action** {task['action']} \n\n",
-        f"**Title** {task['title']} \n\n",
-        f"**Description** {task['description']} \n\n"
+    result = (
+        f"Task saved successfully as **pending**\n\n"
+        f"**Title:** {task['title']}\n\n"
+        f"**Contact Name:** {task.get('name', 'N/A')}\n\n"
+        f"**Description:** {task['description']}\n\n"
+        f"**Action:** {task['action']}"
     )
-     
     return result
 
 # 2. Define a list of callable tools for the model
@@ -38,6 +38,10 @@ tools = [
                 "description": {
                     "type": "string",
                     "description": "Description of the Task",
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the contact person",
                 },
                 "action": {
                     "type": "string",

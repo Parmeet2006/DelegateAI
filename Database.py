@@ -1,16 +1,23 @@
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
-from config import MONGODB_URI
+from config import MONGODB_URI, DB_NAME
 import json
+
+# Database References to perfrom direct CRUD operation
+mongo_client = MongoClient(MONGODB_URI, server_api=ServerApi('1'))
+db = mongo_client[DB_NAME]
+tasks_collection = db['tasks']
+contacts_collection = db['contacts']
+
 
 class DBHelper:
 
-    def __init__(self, db_name='TR2026'):
+    def __init__(self, db_name=DB_NAME):
         self.client = MongoClient(MONGODB_URI, server_api=ServerApi('1'))
         self.db = self.client[db_name]
         print('[DBHelper] Connection Created')
 
-    def select_collection(self, collection_name='user'):
+    def select_collection(self, collection_name='users'):
         self.collection = self.db[collection_name]
         print('[DBHelper] Collection Selected:', collection_name)
 

@@ -1,12 +1,28 @@
 {
-    "contacts":[
+    "contacts": [
         {
-            "name":"Parmeet Singh",
-            "phone":"+919056504370"
+            "name": "Parmeet Singh",
+            "phone": "+919056504370"
         },
         {
-            "name":"Krish Mankoo",
-            "phone":"+919592636111"
+            "name": "Krish Mankoo",
+            "phone": "+919592636111"
+        },
+        {
+            "name": "Kamal",
+            "phone": "+18073554031"
+        },
+        {
+            "name": "Tony",
+            "phone": "+919814787000"
+        },
+        {
+            "name": "Gurneet",
+            "phone": "+916280940194"
+        },
+        {
+            "name": "Parneet",
+            "phone": "+918195803400"
         }
     ]
 }

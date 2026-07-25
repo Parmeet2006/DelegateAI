@@ -1,5 +1,13 @@
 import streamlit as st
+from CallerAgent import fetch_conversation_status
 
-# Function to display dashboard
+# function to display dashboard
 def page_dashboard():
-    st.title("Dashboard")
+    st.title('Dashboard')
+    
+    if st.button('Fetch Conversation Status'):
+        result = fetch_conversation_status()
+    
+        for line in result:
+            st.write(line)
+    
