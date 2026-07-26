@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 DelegateAI / Prompt2Phone
+# 🤖 Prompt2Phone
 ### *Type the Task. AI Makes the Call.*
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
