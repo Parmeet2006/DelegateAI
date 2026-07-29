@@ -48,14 +48,22 @@ class DBHelper:
                 '$set': document_to_update
             }
         )
-        print('[DBHelper] Document Updated', result)
+        print('[DBHelper] Document Updated')
+        print("[DBHelper] Matched:", result.matched_count)
+        print("[DBHelper] Modified:", result.modified_count)
+        return result
 
 
-    def delete(self, condition):
+    def delete(self, condition=None):
         result = self.collection.delete_one(condition)
-        print('[DBHelper] Document Deleted', result)
-
+        print("[DBHelper] Deleted:", result.deleted_count)
+        return result
     
+    def find(self, condition=None):
+        if condition is None:
+            condition = {}
+        result = list(self.collection.find(condition))
+        return result
 
 # this is outside of class
 # kind of a extra function to save contacts

@@ -2,6 +2,9 @@ from Database import DBHelper
 from config import openai_client
 import datetime
 import json
+from Pages.Update_task import update_task
+from Pages.Delete_task import delete_task
+from Pages.List_task import list_tasks
 
 # DB Initialization
 db_helper = DBHelper()
@@ -52,6 +55,87 @@ tools = [
             "required": ["title", "description", "action"],
         },
     },
+    {
+        "type": "function",
+        "name": "update_task",
+        "description": "Update an existing task by modifying one or more fields like title, description, contact name, action or status.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+
+                "title": {
+                    "type": "string",
+                    "description": "The exact title of the existing task stored in the database that should be updated. Preserve the title exactly as it was originally created."
+                },
+
+                "updates": {
+                    "type": "object",
+                    "description": "Fields that need updating.",
+                    "properties": {
+                        "title": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "action": {
+                            "type": "string",
+                            "enum": ["call","message","email","Other"]
+                        },
+                        "status": {
+                            "type": "string",
+                            "enum": ["pending","calling","completed","failed"]
+                        }
+                    }
+                }
+            },
+            "required": ["title","updates"]
+        }
+    },
+    {
+        "type": "function",
+        "name": "delete_task",
+        "description": "Delete an existing task from MongoDB using its exact title.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "The exact title of the task to delete."
+                }
+            },
+            "required": ["title"]
+        }
+    },
+    {
+        "type": "function",
+        "name": "list_tasks",
+        "description": "Retrieve tasks from MongoDB. Filters are optional.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "filters": {
+                    "type": "object",
+                    "properties": {
+                        "status": {
+                        "type": "string",
+                        "enum": ["pending","calling","completed","failed"]
+                    },
+
+                    "action": {
+                        "type": "string",
+                        "enum": ["call","message","email","Other"]
+                        }
+
+                    }
+                }
+
+            }  
+        }
+    }
 ]
 
 def agentic_save(input_list):
@@ -76,10 +160,17 @@ def agentic_save(input_list):
         if function_name == 'save_task':
             arguments['user_original_input'] = input_list[0]['content']
             result = save_task(arguments)
-        elif function_name == 'update_task':
-            pass
+        
+        elif function_name == "update_task":
+            result = update_task(
+                title=arguments["title"],
+                updates=arguments["updates"])
+        
         elif function_name == 'delete_task':
-            pass
+            result = delete_task(title=arguments["title"])
+
         elif function_name == 'list_tasks':
-            pass
+            filters = arguments.get("filters", {})
+            result = list_tasks(filters)
+    
     return result
