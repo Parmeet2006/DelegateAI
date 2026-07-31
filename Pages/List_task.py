@@ -20,8 +20,8 @@ def list_tasks(filters=None):
 
     if len(tasks) == 0:
 
-        if active_filters:
-            return "📭 No tasks match your request."
+        # if active_filters:
+        #     return "📭 No tasks match your request."
 
         return (
             "📭 Your task list is empty.\n\n"
@@ -33,10 +33,10 @@ def list_tasks(filters=None):
     for index, task in enumerate(tasks, start=1):
 
         result += (
-            f"**{index}. {task['title']}**\n"
-            f"👤 Contact : {task.get('name', 'N/A')}\n"
-            f"📝 Description : {task['description']}\n"
-            f"⚡ Action : {task['action']}\n"
+            f"**{index}. {task['title']}**\n\n"
+            f"👤 Contact : {task.get('name', 'N/A')}\n\n"
+            f"📝 Description : {task['description']}\n\n"
+            f"⚡ Action : {task['action']}\n\n"
             f"📌 Status : {task['status']}\n\n"
         )
 

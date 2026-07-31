@@ -113,7 +113,7 @@ tools = [
     {
         "type": "function",
         "name": "list_tasks",
-        "description": "Retrieve tasks from MongoDB. Filters are optional.",
+        "description": "Retrieve tasks from MongoDB. If the user asks to list all tasks, call this function with an empty filters object {}. Only include filters when the user explicitly requests a status or action.",
         "parameters": {
             "type": "object",
             "properties": {

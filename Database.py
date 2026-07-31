@@ -65,6 +65,11 @@ class DBHelper:
         result = list(self.collection.find(condition))
         return result
 
+    def count(self, condition=None):
+        if condition is None:
+            condition = {}
+        return self.collection.count_documents(condition)
+
 # this is outside of class
 # kind of a extra function to save contacts
 def save_contacts():
